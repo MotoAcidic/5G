@@ -32,9 +32,9 @@ jobs:
         sudo apt-get install libdb4.8-dev libdb4.8++-dev
     - name: Create Distribution Tarball
       run: |
-        ./autogen.sh
-        ./configure --with-incompatible-bdb
-        make dist
+        sudo ./autogen.sh
+        sudo ./configure --with-incompatible-bdb
+        sudo make dist
     - name: Download Dependencies
       run: make -C depends download
     - name: Create Dependencies Tarball
@@ -81,8 +81,8 @@ jobs:
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build Zcoin
       run: |
-        ./configure --disable-jni --enable-elysium --enable-tests --with-comparison-tool=no --prefix=`pwd`/depends/x86_64-pc-linux-gnu
-        make -j$(nproc)
+        sudo ./configure --disable-jni --enable-elysium --enable-tests --with-comparison-tool=no --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+        sudo make -j$(nproc)
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
@@ -131,8 +131,8 @@ jobs:
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Build fiveg
       run: |
-        CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-jni --enable-elysium --prefix=/
-        make -j$(nproc)
+        sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --disable-jni --enable-elysium --prefix=/
+        sudo make -j$(nproc)
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
@@ -166,10 +166,10 @@ jobs:
     - name: Build Dependencies
       run: make -C depends -j$(sysctl -n hw.activecpu)
       working-directory: ${{ env.SOURCE_ARTIFACT }}
-    - name: Build fiveg
+    - name: Build Zcoin
       run: |
-        ./configure --disable-jni --enable-elysium --prefix=$(grealpath depends/x86_64-apple-darwin*)
-        make -j$(sysctl -n hw.activecpu)
+        sudo ./configure --disable-jni --enable-elysium --prefix=$(grealpath depends/x86_64-apple-darwin*)
+        sudo make -j$(sysctl -n hw.activecpu)
       working-directory: ${{ env.SOURCE_ARTIFACT }}
     - name: Prepare Files for Artifact
       run: |
