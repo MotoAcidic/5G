@@ -34,7 +34,7 @@ jobs:
       run: |
         sudo bash ./autogen.sh
         sudo ./configure --with-incompatible-bdb
-        sudo make dist
+        sudo make
     - name: Download Dependencies
       run: make -C depends download
     - name: Create Dependencies Tarball
